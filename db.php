@@ -1,6 +1,5 @@
 <?php
-// Load environment variables (if using .env)
-require 'vendor/autoload.php'; // Make sure you have vlucas/phpdotenv installed via Composer
+require __DIR__ . '/vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -13,18 +12,20 @@ $user = "data_j4be_user";
 $password = "Bt0ZBgsg3RcPaytjpCI5WWmC0wTHm0Gs";
 
 try {
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;";
-    $pdo = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-    // Connection successful
-    // echo "Connected to PostgreSQL!";
+    $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
 } catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    die("Database connection failed: " . $e->getMessage());
 }
 
+use Cloudinary\Cloudinary;
 // Cloudinary setup
-\Cloudinary::config([
-    "cloud_name" => $_ENV['CLOUDINARY_CLOUD_NAME'],
-    "api_key"    => $_ENV['CLOUDINARY_API_KEY'],
-    "api_secret" => $_ENV['CLOUDINARY_API_SECRET']
+$cloudinary = new Cloudinary([
+    "cloud" => [
+        "cloud_name" => $_ENV['CLOUDINARY_CLOUD_NAME'],
+        "api_key"    => $_ENV['CLOUDINARY_API_KEY'],
+        "api_secret" => $_ENV['CLOUDINARY_API_SECRET']
+    ]
 ]);
 ?>

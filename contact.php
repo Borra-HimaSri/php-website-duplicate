@@ -1,11 +1,12 @@
 <?php
 session_start();
+// Display status message if set
 if (isset($_SESSION['status'])) {
     echo "<p>{$_SESSION['status']}</p>";
     unset($_SESSION['status']); // Clear message after displaying
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,8 +38,9 @@ if (isset($_SESSION['status'])) {
         <link href="css/bootstrap.css" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="/css/style.css" rel="stylesheet">
-        <link href="/css/mystyle.css" rel="stylesheet">
+         <link href="css/style.css" rel="stylesheet">
+        <link href="css/mystyle.css" rel="stylesheet">
+        
         
 
     </head>
